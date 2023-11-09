@@ -16,12 +16,22 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self):
+    def __init__(self, fields: List[str]):
+        """
+            Update the class to accept a list of strings fields const args
+        """
         super(RedactingFormatter, self).__init__(self.FORMAT)
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        NotImplementedError
+        """
+            filter values in incoming log records using filter_datum.
+            Values for fields in fields should be filtered.
+        """
+        filtered = filter_datum(self.fields, self.REDACTION,
+                                record.getMessage(), self.SEPARATOR)
+        record.msg = filtered
+        return super().format(record)
 
 
 def filter_datum(
