@@ -10,7 +10,7 @@ import csv
 import logging
 from typing import List
 
-PII_FIELDS = (name, email, phone, ssn, password)
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 class RedactingFormatter(logging.Formatter):
@@ -61,10 +61,40 @@ def get_logger() -> logging.Logger:
          It should have a StreamHandler with RedactingFormatter as formatter
          It should not propagate messages to other loggers.
     """
-    logger = logging.getlogger("user_data")
+    logger = logging.getLogger("user_data")
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.setLevel(logging.INFO)
     logger.propagate = False
-    logger.addHandler = (stream_handler)
+    logger.addHandler(stream_handler)
     return logger
+
+def get_db() -> mysql.connector.connection.MySQLConnection:
+    """
+        Use the os module to obtain credentials from the environment
+        Use the module mysql-connector-python to connect to the MySQL db
+    """
+    return mysql.connector.connect(
+            host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost"),
+            port = 3306,
+            user = os.getenv("PERSONAL_DATA_DB_USERNAME", "root"),
+            password = os.getenv("PERSONAL_DATA_DB_PASSWORD", ""),
+            database = os.getenv("PERSONAL_DATA_DB_NAME", "")
+    )
+
+def main() -> None:
+    """
+        The function will obtain a database connection using get_db
+        retrieve all rows in the users table and display each row
+        under a filtered format like this
+    """
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT name, email, phone, ssn, password FROM users;")
+    logger = get_logger()
+    for row in cursor:
+        logger.info("name={};email={};phone={}ssn={};password={}".format(
+            row[0], row[1], row[2], row[3], row[4]))
+
+    cursor.close()
+    db.close()
