@@ -4,9 +4,13 @@
     Write a function `filter_datum` that returns the log message obfuscated:
 """
 
+import os
 import re
+import csv
 import logging
 from typing import List
+
+PII_FIELDS = (name, email, phone, ssn, password)
 
 
 class RedactingFormatter(logging.Formatter):
@@ -48,3 +52,19 @@ def filter_datum(
         lambda x, y: r'(?P<field>{})=[^{}]*'.format('|'.join(x), y),
         lambda x: r'\g<field>={}'.format(x))
     return re.sub(extract(fields, separator), replace(redaction), message)
+
+
+def get_logger() -> logging.Logger:
+    """
+         function takes no arguments and returns a logging.Logger object
+         logger should be named "user_data" and only log up to logging.INFO
+         It should have a StreamHandler with RedactingFormatter as formatter
+         It should not propagate messages to other loggers.
+    """
+    logger = logging.getlogger("user_data")
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+    logger.addHandler = (stream_handler)
+    return logger
