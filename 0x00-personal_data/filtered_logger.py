@@ -92,7 +92,9 @@ def main() -> None:
     cursor = db.cursor()
     cursor.execute("SELECT name, email, phone, ssn, password FROM users;")
     logger = get_logger()
-    for row in cursor:
+
+    rows = cursor.fetchall()
+    for row in rows:
         logger.info("name={};email={};phone={}ssn={};password={}".format(
             row[0], row[1], row[2], row[3], row[4]))
 
