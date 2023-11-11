@@ -1,1 +1,1 @@
-git add *.py && git commit -m "Task 0. Regex-ing" && git push
+git add *.py && git commit -m "Task 2. Create logger" && git push
