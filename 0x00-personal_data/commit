@@ -1,1 +1,1 @@
-git add *.py && git commit -m "Task 2. Create logger" && git push
+git add *.py && git commit -m "Task 5. Encrypting passwords" && git push
