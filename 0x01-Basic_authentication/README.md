@@ -11,3 +11,6 @@ At the end of this project, you are expected to be able to [explain to anyone](h
 - How to encode a string in Base64
 - What Basic authentication means
 - How to send the Authorization header
+
+
+C:\Users\hp\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\Scripts
