@@ -34,8 +34,8 @@ class Auth:
         """
             returns None - request will be the Flask request object
         """
-        if request and 'Authorization' in request.headers:
-            return request.headers['Authorization']
+        if request:
+            return request.headers.get('Authorization')
         else:
             return None
 
