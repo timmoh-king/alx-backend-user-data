@@ -4,6 +4,7 @@
     create a class named Auth
 """
 
+import re
 from flask import request
 from typing import List, TypeVar
 
@@ -21,11 +22,13 @@ class Auth:
         """
             returns False - path and excluded_paths will be used later
         """
-        return (
-            path is None or
-            excluded_paths is None or
-            path not in excluded_paths
-        )
+        if path is not None and excluded_paths is not None:
+            for excluded_path in excluded_paths:
+                excluded_regex = '^{}$'.format(re.escape(
+                    excluded_path.rstrip('/')).replace('\\*', '.*') + '/?.*')
+                if re.match(excluded_regex, path):
+                    return False
+        return True
 
     def authorization_header(self, request=None) -> str:
         """
