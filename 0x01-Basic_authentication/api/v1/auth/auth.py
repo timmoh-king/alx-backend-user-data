@@ -17,7 +17,7 @@ class Auth:
         self,
         path: str,
         excluded_paths: List[str]
-        ) -> bool:
+    ) -> bool:
         """
             returns False - path and excluded_paths will be used later
         """
