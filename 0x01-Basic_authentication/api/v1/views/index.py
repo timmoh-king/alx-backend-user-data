@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Module of Index views
 """
+
 from flask import jsonify, abort
 from api.v1.views import app_views
 
@@ -24,3 +25,10 @@ def stats() -> str:
     stats = {}
     stats['users'] = User.count()
     return jsonify(stats)
+
+
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
+def unauthorized() -> None:
+    """ raise a 401 error by using abort - Custom Error Pages
+    """
+    abort(401)
