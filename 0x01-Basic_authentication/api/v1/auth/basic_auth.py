@@ -96,5 +96,5 @@ class BasicAuth(Auth):
             decode_auth_token)
         user_email, user_pwd = user_credentials
         user_obj = self.user_object_from_credentials(
-            user_email=user_email, user_pwd=user_pwd)
+            user_email, user_pwd)
         return user_obj
