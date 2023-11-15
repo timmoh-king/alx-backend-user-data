@@ -94,7 +94,7 @@ class BasicAuth(Auth):
             base64_auth_token)
         user_credentials = self.extract_user_credentials(
             decode_auth_token)
-        user_email, user_pwd = user_credentials
+        email, password = user_credentials
         user_obj = self.user_object_from_credentials(
-            user_email, user_pwd)
+            email, password)
         return user_obj
