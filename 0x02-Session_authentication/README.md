@@ -43,3 +43,4 @@ $ API_HOST=0.0.0.0 API_PORT=5000 python3 -m api.v1.app
 
 
 `C:\Users\hp\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\Scripts`
+Ym9iQGhidG4uaW86SDBsYmVydG9uU2Nob29sOTgh

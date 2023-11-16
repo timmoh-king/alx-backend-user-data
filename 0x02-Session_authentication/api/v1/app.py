@@ -26,7 +26,7 @@ if auth_type == 'basic_auth':
 
 
 @app.before_request
-def before_request():
+def authenticate_user():
     """ a method in api/v1/app.py to handler before_request"""
     excluded_paths = [
         '/api/v1/status/',
@@ -35,11 +35,15 @@ def before_request():
     ]
 
     if auth and auth.require_auth(request.path, excluded_paths):
+        user = auth.current_user(request)
+
         if auth.authorization_header(request) is None:
             abort(401)
 
-        if auth.current_user(request) is None:
+        if user is None:
             abort(403)
+
+        request.current_user = user
 
 
 @app.errorhandler(404)
