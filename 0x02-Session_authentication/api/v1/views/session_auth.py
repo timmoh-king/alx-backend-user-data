@@ -22,7 +22,7 @@ def login() -> Tuple[str, int]:
     if not email or not email.strip():
         return jsonify({"error": "email missing"}), 400
 
-    password = request.get('password')
+    password = request.form.get('password')
     if not password or not password.strip():
         return jsonify({"error": "password missing"}), 400
 
