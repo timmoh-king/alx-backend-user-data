@@ -1,1 +1,1 @@
-git add -A && git commit -m "Task 3: Update User" && git push
+git add -A && git commit -m "Delete __pycache__ files" && git push
