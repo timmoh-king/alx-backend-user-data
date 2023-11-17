@@ -66,3 +66,25 @@ class DB:
         if first_record is None:
             raise NoResultFound()
         return first_record
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """
+            locate the user to update, then will update the user’s attributes
+            as passed in the method’s arguments then commit changes to the db
+        """
+        user = self.find_user_by(id=user_id)
+        if user is None:
+            return
+
+        to_update = {}
+        for key, value in kwargs.items():
+            if hasattr(User, key):
+                to_update[getattr(User, key)] = value
+            else:
+                raise ValueError()
+
+        self._session.query(User).filter(User.id == user_id).update(
+            to_update,
+            synchronize_session=False
+        )
+        self._session.commit()
