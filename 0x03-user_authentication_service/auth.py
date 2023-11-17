@@ -15,4 +15,4 @@ def _hash_password(password: str) -> bytes:
         The returned bytes is a salted hash of the input password
         hashed with bcrypt.hashpw.
     """
-    return bcrypt.hashpw(password.encode(), password.gensalt())
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
