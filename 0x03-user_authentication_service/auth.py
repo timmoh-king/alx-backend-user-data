@@ -4,7 +4,7 @@
     define a _hash_password method that takes in a password
     string arguments and returns bytes.
 """
-
+import uuid
 import bcrypt
 import base64
 from db import DB
@@ -19,6 +19,11 @@ def _hash_password(password: str) -> bytes:
         hashed with bcrypt.hashpw.
     """
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+
+def _generate_uuid() -> str:
+    """return a string representation of a new UUID"""
+    return str(uuid.uuid4())
 
 
 class Auth:
