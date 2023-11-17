@@ -18,7 +18,7 @@ def _hash_password(password: str) -> bytes:
         The returned bytes is a salted hash of the input password
         hashed with bcrypt.hashpw.
     """
-    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
 
 class Auth:
@@ -44,3 +44,17 @@ class Auth:
         except NoResultFound:
             return self._db.add_user(email, _hash_password(password))
         raise ValueError(f"User {email} already exists")
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """
+            Try locating the user by email. If it exists,
+            check the password with bcrypt.checkpw
+        """
+        try:
+            user = self._db.find_user_by(email=email)
+            if user is not None:
+                return bcrypt.checkpw(
+                    password.encode('utf-8'), user.hashed_password)
+        except NoResultFound:
+            return False
+        return False
