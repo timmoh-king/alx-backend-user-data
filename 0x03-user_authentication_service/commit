@@ -1,0 +1,1 @@
+git add -A && git commit -m "Task 0: User Model" && git push
