@@ -4,8 +4,10 @@
 complete the DB class provided below to implement the add_user method.
 """
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, tuple_
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from typing import TypeVar
@@ -44,3 +46,23 @@ class DB:
             self._session.rollback()
             user = None
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+            returns the first row found in the users table
+            as filtered by the method’s input arguments
+        """
+        columns, values = [], []
+        for key, value in kwargs.items():
+            if hasattr(User, key):
+                columns.append(getattr(User, key))
+                values.append(value)
+            else:
+                raise InvalidRequestError()
+
+        first_record = self._session.query(User).filter(
+            tuple_(*columns).in_([tuple(values)])
+        ).first()
+        if first_record is None:
+            raise NoResultFound()
+        return first_record
