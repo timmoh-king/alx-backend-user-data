@@ -1,1 +1,1 @@
-git add -A && git commit -m "Updated Task 4: Hash Password" && git push
+git add -A && git commit -m "Task 5. Register User" && git push
