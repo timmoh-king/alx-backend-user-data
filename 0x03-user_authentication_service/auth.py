@@ -124,6 +124,9 @@ class Auth:
             if user is not None:
                 updated_password = _hash_password(password)
                 self._db.update_user(
-                    user_id=user.id, hashed_password=updated_password, reset_token=None)
+                    user_id=user.id,
+                    hashed_password=updated_password,
+                    reset_token=None
+                )
         except NoResultFound:
             raise ValueError()
