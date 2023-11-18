@@ -103,8 +103,16 @@ def update_password() -> str:
         contain form data with fields "email", "reset_token" and "new_password"
         Update the password.
     """
-    email, password = request.form.get("email"), request.form.get("password")
+    email = request.form.get("email")
     reset_token = request.form.get("reset_token")
+    new_password = request.form.get("new_password")
+
+    try:
+        AUTH.update_password(reset_password_token, new_password)
+    except ValueError:
+        abort(403)
+
+    return jsonify({"email": email, "message": "Password updated"}), 200
 
 
 if __name__ == "__main__":
