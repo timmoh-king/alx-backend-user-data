@@ -52,5 +52,13 @@ def login() -> str:
     return response
 
 
+# @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+# def logout() -> str:
+#     """
+#         The request is expected to contain the session ID
+#         as a cookie with key "session_id".
+#     """
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
