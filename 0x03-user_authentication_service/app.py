@@ -52,12 +52,20 @@ def login() -> str:
     return response
 
 
-# @app.route("/sessions", methods=["DELETE"], strict_slashes=False)
-# def logout() -> str:
-#     """
-#         The request is expected to contain the session ID
-#         as a cookie with key "session_id".
-#     """
+@app.route("/sessions", methods=["DELETE"], strict_slashes=False)
+def logout() -> str:
+    """
+        The request is expected to contain the session ID
+        as a cookie with key "session_id".
+    """
+    session_id = request.cookies.get("session_id")
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user:
+        AUTH.destroy_session(user.id)
+        index()
+    else:
+        abort(403)
 
 
 if __name__ == "__main__":
