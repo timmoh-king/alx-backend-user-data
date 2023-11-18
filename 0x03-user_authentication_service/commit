@@ -1,1 +1,1 @@
-git add -A && git commit -m "Updated Task 13: Destroy session" && git push
+git add -A && git commit -m "Task 14. Log out" && git push
