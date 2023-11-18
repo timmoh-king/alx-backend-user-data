@@ -1,1 +1,1 @@
-git add -A && git commit -m "Updated Task 14. Log out" && git push
+git add -A && git commit -m "Updated Task 14. Log out route handler" && git push
