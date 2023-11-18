@@ -9,7 +9,7 @@ import bcrypt
 import base64
 from db import DB
 from user import User
-from typing import ByteString, Optional
+from typing import ByteString, Union
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -78,7 +78,7 @@ class Auth:
         except NoResultFound:
             return
 
-    def get_user_from_session_id(self, session_id: str) -> Optional[User, None]:
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None]:
         """
             If the session ID is None or no user is found return None else User
         """
