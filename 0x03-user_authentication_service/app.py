@@ -4,7 +4,7 @@
     Create a Flask app that has a single GET route ("/")
     use flask.jsonify to return a JSON payload of the form:
 """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, redirect
 from flask_cors import (CORS, cross_origin)
 from auth import Auth
 
