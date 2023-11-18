@@ -1,1 +1,1 @@
-git add -A && git commit -m "Task 11. Log in" && git push
+git add -A && git commit -m "Task 12. Find user by session ID" && git push
