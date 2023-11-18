@@ -1,1 +1,1 @@
-git add -A && git commit -m "Updated Task 15. User profile" && git push
+git add -A && git commit -m "Task 16. Generate reset password token" && git push
