@@ -119,9 +119,11 @@ class Auth:
             Use the reset_token to find the corresponding user.
             If it does not exist, raise a ValueError exception.
         """
-        user = self._db.find_user_by(reset_token=reset_token)
-        if user is not None:
-            updated_password = _hash_password(password)
-            self._db.update_user(user_id=user.id, hashed_password=updated_password)
-        else:
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            if user is not None:
+                updated_password = _hash_password(password)
+                self._db.update_user(
+                    user_id=user.id, hashed_password=updated_password)
+        except NoResultFound:
             raise ValueError()
